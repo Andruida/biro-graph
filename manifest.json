@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Bíró graph",
+  "description": "Bíró-s feladat oldalakon kirajzol egy időpont-pontszám gráfot",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "js": [
+        "jquery-3.6.4.min.js",
+        "chart.js",
+        "luxon.js",
+        "chartjs-adapter-luxon.js",
+        "content.js"
+      ],
+      "matches": [
+        "https://biro2.inf.u-szeged.hu/feladat_eredmeny.php*",
+        "https://biro.inf.u-szeged.hu/feladat_eredmeny.php*"
+      ]
+    }
+  ]
+}
