@@ -11,8 +11,7 @@ $(document).ready(function () {
     restoreValues();
     $("#content").append("<div style=\"margin-top: 20px;\"><canvas id=\"score_chart\"></canvas></div>");
 
-    // $("table").on("change", draw); 
-    setInterval(function() {
+    setInterval(function () {
         if (restoreReady && !drawn) {
             draw();
             drawn = true;
@@ -34,7 +33,10 @@ function restoreValues() {
             // console.log(parseFloat(data.trim()), new Date(jqXHR.getResponseHeader("Last-Modified")))
             const fields = $(elem).find("td")
             if (fields[1]) {
-                fields[1].innerText = new Date(jqXHR.getResponseHeader("Last-Modified")).toLocaleString()
+                fields[1].innerText =
+                    new luxon.DateTime.fromJSDate(
+                        new Date(jqXHR.getResponseHeader("Last-Modified")))
+                        .toFormat("yyyy-MM-dd HH:mm:ss")
             }
             if (fields[3]) {
                 fields[3].innerText = data.trim()
@@ -55,7 +57,9 @@ function loadValues() {
         if (fields[1] && fields[3]) {
             const date = new Date(fields[1].innerText)
             const score = parseFloat(fields[3].innerText)
-            data.push({ x: date, y: score })
+            if (score != 0) {
+                data.push({ x: date, y: score })
+            }
         }
     });
     return data
